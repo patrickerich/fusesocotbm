@@ -1,0 +1,41 @@
+CAPI=2:
+
+name : ::fcm:0.1
+description : Minimal cocotb testbench using FuseSoC with several simulators
+
+filesets:
+    rtl:
+        files:
+            - rtl/fcm.v : {file_type : verilogSource}
+    tb:
+        files:
+            - tb/test_fcm.py : {file_type : user, copyto : .}
+
+targets:
+    default: &default
+        filesets: [rtl]
+        toplevel: fcm
+    sim_base: &sim_base
+        <<: *default
+        filesets_append: [tb]
+        flow: sim
+    sim_icarus:
+        <<: *sim_base 
+        flow_options:
+            tool: icarus
+            cocotb_module: test_fcm
+            timescale: 1ns/1ns
+            vcs_options: [-timescale=1ns/1ns]
+    sim_verilator:
+        <<: *sim_base 
+        flow_options:
+            tool: verilator
+            cocotb_module: test_fcm
+            timescale: 1ns/1ns
+    sim_questa:
+        <<: *sim_base 
+        flow_options:
+            tool: modelsim
+            cocotb_module: test_fcm
+            timescale: 1ns/1ns
+    

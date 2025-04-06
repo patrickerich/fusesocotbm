@@ -1,0 +1,7 @@
+wheel
+setuptools
+packaging
+git+https://github.com/patrickerich/edalize.git
+git+https://github.com/patrickerich/fusesoc.git
+git+https://github.com/patrickerich/cocotb.git
+git+https://github.com/patrickerich/cocotb-test.git
